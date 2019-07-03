@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="default" extends="struts-default" namespace="/">
+        <action name="login" class="action.LoginAction">
+            <result name="acd">validate.jsp</result>
+            <result name="error">index.jsp</result>
+            <result  name="ltm">visualLtm.jsp</result>
+            <result name="year">visualYear.jsp</result>
+        </action>
+        <action name="validate" class="action.ModuleAction" method="execute">
+            <result name="success">Assignment.jsp</result>
+        </action>
+        <action name="bklt" class="action.ModuleAction" method="booklet">
+            <result name="success">booklet.jsp</result>
+        </action>
+        <action name="yahaha" class="action.VisualAction" method="bklt">
+            <result name="success">booklet.jsp</result>
+        </action>
+        <action name="save" class="action.AssignmentAction">
+            <result name="success">Assignment.jsp</result>
+        </action>
+        <action name="visual" class="action.VisualAction" method="execute">
+            <result name="success">validate.jsp</result>
+        </action>
+        <action name="update" class="action.AssignmentAction" method="update">
+            <result name="success">Assignment.jsp</result>
+        </action>
+        <action name="delete" class="action.AssignmentAction" method="delete">
+            <result name="success">Assignment.jsp</result>
+        </action>
+        <action name="tml" class="action.VisualAction" method="tml">
+            <result name="success">timeLine.jsp</result>
+        </action>
+        <action name="alltml" class="action.VisualAction" method="alltml">
+            <result name="success">allTimeLine.jsp</result>
+        </action>
+        <action name="allmodule" class="action.VisualAction" method="allmodule">
+            <result name="success">allModule.jsp</result>
+        </action>
+    </package>
+</struts>

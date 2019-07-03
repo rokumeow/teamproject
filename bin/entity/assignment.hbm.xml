@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+   
+<hibernate-mapping package="entity">
+	<class name="entity.Assignment" table="assignment">
+		<id name="assignmentID" column="assignmentID">
+			<generator class="native">
+			</generator>
+		</id>
+		
+		<property name="name" column="name"></property>
+		<property name="format" column="format"></property>
+		<property name="startTime" column="startTime"></property>
+		<property name="endTime" column="endTime"></property>
+		<property name="marks" column="marks"></property>
+		
+		<many-to-one name="module" class="entity.Module">
+			<column name="moduleCode"></column>
+			<column name="semester"></column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

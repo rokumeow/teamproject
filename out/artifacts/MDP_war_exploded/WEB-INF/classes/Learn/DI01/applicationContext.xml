@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--注册School-->
+    <bean id="mySchool" class="Learn.DI01.School">
+        <property name="name" value="Sheffield"></property>
+    </bean>
+
+    <!--注册 Student-->
+    <bean id="myStudent" class="Learn.DI01.Student">
+        <property name="name" value="Tom"></property>
+        <property name="age" value="22"></property>
+        <property name="school" ref="mySchool"></property>
+    </bean>
+
+
+</beans>

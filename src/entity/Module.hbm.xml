@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping package="entity">
+	<class name="Module" table="module">
+		<composite-id>
+			<key-property name="moduleCode" column="moduleCode"></key-property>
+			<key-property name="semester" column="semester"></key-property>
+		</composite-id>
+		
+		<set name="Assignments" table="assignment" lazy="false">
+			<key>
+				<column name="moduleCode"></column>
+				<column name="semester"></column>
+			</key>
+			<one-to-many class="entity.Assignment"/>
+		</set>
+		
+		<set name="academics" table="Aca_Assignment" lazy="false">
+			<key>
+				<column name="moduleCode"></column>
+				<column name="semester"></column>
+			</key>
+			<many-to-many column="username" class="entity.Academic"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

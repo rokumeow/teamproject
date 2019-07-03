@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="dataSource" uuid="1ad59e38-65be-4269-93d8-84ece8582e06">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+    </data-source>
+    <data-source name="sessionFactory/Hibernate" uuid="7ff71f93-95d7-421f-b05e-b6bec389abd0">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+    </data-source>
+    <data-source name="@localhost" uuid="2796b1aa-a7fa-41c0-9831-dfac5d0265db">
+      <database-info product="MySQL" version="8.0.15" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.47 ( Revision: fe1903b1ecb4a96a917f7ed3190d80c049b1de29 )" dbms="MYSQL" exact-version="8.0.15" exact-driver-version="5.1">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-schemas>*:*</introspection-schemas>
+    </data-source>
+  </component>
+</project>

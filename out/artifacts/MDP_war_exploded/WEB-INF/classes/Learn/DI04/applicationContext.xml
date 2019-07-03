@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--注册School-->
+    <bean id="mySchool" class="Learn.DI04.School">
+        <property name="name" value="Sheffield"></property>
+    </bean>
+
+    <bean id="mySchool2" class="Learn.DI04.School">
+        <property name="name" value="York"></property>
+    </bean>
+
+    <!--注册 Student-->
+    <bean id="mySome" class="Learn.DI04.Some">
+
+        <property name="schools">
+            <array>
+                <ref bean="mySchool"></ref>
+                <ref bean="mySchool2"></ref>
+            </array>
+        </property>
+
+        <property name="myStrs" value="UK, London">
+        </property>
+
+        <property name="myList" value="Sheffield, Bath">
+        </property>
+
+        <property name="mySet" value="Birmingham, Liverpool">
+        </property>
+
+        <property name="myMap">
+            <map>
+                <entry key="mobile" value="123"></entry>
+                <entry key="VX" value="321"></entry>
+            </map>
+        </property>
+
+        <property name="myPros">
+            <props>
+                <prop key="education">Master</prop>
+                <prop key="sex">Male</prop>
+            </props>
+        </property>
+
+    </bean>
+</beans>

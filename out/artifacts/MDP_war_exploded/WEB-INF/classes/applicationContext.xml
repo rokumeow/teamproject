@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <context:annotation-config />
+
+    <!--Connect to database-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/testdata?serverTimezone=UTC" />
+        <property name="username" value="root" />
+        <property name="password" value="password" />
+    </bean>
+
+    <!--provide sessionFactory, connect to Hibernate-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" lazy-init="false">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+        <property name="mappingResources">
+
+            <list>
+                <value>entity/Academic.hbm.xml</value>
+                <value>entity/Assignment.hbm.xml</value>
+                <value>entity/LTM.hbm.xml</value>
+                <value>entity/Module.hbm.xml</value>
+            </list>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hbm2ddl.auto">update</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/testdata</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--provide services beans-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="AcademicDao" class="Dao.impl.AcademicDaoImpl" >
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="AcademicService" class="Service.impl.AcademicServiceImpl">
+        <property name="academicDao" ref="AcademicDao"></property>
+    </bean>
+
+    <bean id="AssignmentDao" class="Dao.impl.AssignmentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+
+    </bean>
+    <bean id="AssignmentService" class="Service.impl.AssignmentServiceImpl">
+        <property name="assignmentDao" ref="AssignmentDao"></property>
+    </bean>
+
+    <bean id="LTMDao" class="Dao.impl.LTMDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <bean id="LTMService" class="Service.impl.LTMServiceImpl">
+        <property name="ltmDao" ref="LTMDao"></property>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut expression="execution(* Dao.impl.*.*(..))" id="txPointcut" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+    </aop:config>
+
+</beans>
